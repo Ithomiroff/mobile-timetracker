@@ -1,0 +1,5 @@
+.build
+.idea
+docker
+node_modules
+src/stories
