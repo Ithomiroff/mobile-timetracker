@@ -1,3 +1,5 @@
 .build
 .idea
 node_modules
+src/service-worker.ts
+src/serviceWorkerRegistration.ts

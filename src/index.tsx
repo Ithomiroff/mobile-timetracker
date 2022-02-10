@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material';
 import theme from './config/Theme';
 import { UserProvider } from './hooks/UseUser';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './index.css';
 
@@ -26,3 +27,5 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root'),
 );
+
+serviceWorkerRegistration.register();
