@@ -1,0 +1,33 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1rem;
+    background-color: #dee2e6;
+}
+
+.MuiFormHelperText-root {
+    position: absolute;
+    bottom: 0;
+    animation: slideDown .2s linear 1 normal forwards;;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+}
