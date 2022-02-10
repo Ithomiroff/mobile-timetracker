@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { Entrypoint } from '../pages/Entrypoint';
 import { Login } from '../pages/Login';
-
-import Entrypoint from './Entrypoint';
 
 const AppRoutes: React.FC = () => (
     <Routes>

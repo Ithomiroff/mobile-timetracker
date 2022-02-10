@@ -1,35 +1,60 @@
 import React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-    Box,
-    Container,
-    Grow,
-    TextField,
-} from '@mui/material';
+import { Box, Container, Grow } from '@mui/material';
 import { SxProps } from '@mui/system';
 
+import { FormTextField } from '../../components/FormTextField';
+
+import useLogin from './domain/hooks/UseLogin';
 import { StyledLoginRoot, StyledLogo } from './domain/Styled';
+import { LoginForm } from './domain/Types';
 
 const fieldStyles: SxProps = {
     width: 1,
-    mb: 2,
+    mb: 3,
     textAlign: 'center',
 };
 
 const Login: React.FC = () => {
+    const {
+        control,
+        handleSubmit,
+        onLogin,
+        isLoading,
+    } = useLogin();
+
     return (
-        <StyledLoginRoot>
+        <StyledLoginRoot onSubmit={ handleSubmit(onLogin) }>
             <Grow in={ true } easing="ease-in">
                 <Container maxWidth="sm">
                     <Box sx={ fieldStyles }>
                         <StyledLogo src="/logo.svg" alt="My mmtr" />
                     </Box>
-                    <TextField label="Логин" variant="outlined" sx={ fieldStyles } autoFocus={ true } />
-                    <TextField label="Пароль" type="password" variant="outlined" sx={ fieldStyles } />
+                    <FormTextField<LoginForm>
+                        name="login"
+                        control={ control }
+                        disabled={ isLoading }
+                        label="Логин"
+                        variant="outlined"
+                        sx={ fieldStyles }
+                        autoFocus={ true }
+                        rules={ { required: 'Поле обязательно для заполнения' } }
+                    />
+                    <FormTextField<LoginForm>
+                        name="password"
+                        control={ control }
+                        disabled={ isLoading }
+                        label="Пароль"
+                        type="password"
+                        variant="outlined"
+                        sx={ fieldStyles }
+                        rules={ { required: 'Поле обязательно для заполнения' } }
+                    />
                     <LoadingButton
                         sx={ fieldStyles }
+                        type="submit"
                         size="large"
-                        loading={ false }
+                        loading={ isLoading }
                         variant="contained"
                     >
                         Войти
