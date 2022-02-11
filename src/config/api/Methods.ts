@@ -32,8 +32,22 @@ const postAuthorization = async (url: string, body: any): Promise<AuthResponseDt
     return response.data as AuthResponseDto;
 };
 
+const getImage = async (url: string): Promise<string> => {
+    const api = createApiConfig(true, { responseType: 'arraybuffer' });
+
+    const response = await api.get(url);
+
+    const blob = new Blob(
+        [response.data],
+        { type: response.headers['content-type'] },
+    );
+
+    return window.URL.createObjectURL(blob);
+};
+
 export {
     postReq,
     getReq,
     postAuthorization,
+    getImage,
 };

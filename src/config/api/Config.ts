@@ -9,8 +9,8 @@ const base: AxiosRequestConfig = {
     },
 };
 
-const createApiConfig = (authorized?: boolean): AxiosInstance => {
-    const newConfig = { ...base };
+const createApiConfig = (authorized?: boolean, config?: Partial<AxiosRequestConfig>): AxiosInstance => {
+    const newConfig = { ...base, ...config };
 
     if (authorized) {
         const token = storageToken.getAuthToken();

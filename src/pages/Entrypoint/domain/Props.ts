@@ -2,6 +2,7 @@ import { UserDto } from '../../../types/UserDto';
 
 export type AppToolbarProps = {
     user: UserDto;
+    avatar: string;
     onOpen: () => void;
 };
 
