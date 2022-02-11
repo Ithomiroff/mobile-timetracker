@@ -31,6 +31,7 @@ const Login: React.FC = () => {
                         <StyledLogo src="/logo.svg" alt="My mmtr" />
                     </Box>
                     <FormTextField<LoginForm>
+                        autoComplete="off"
                         name="login"
                         control={ control }
                         disabled={ isLoading }

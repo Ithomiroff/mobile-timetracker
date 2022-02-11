@@ -13,13 +13,15 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.22",
+    "@types/luxon": "^2.0.9",
+    "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "axios": "^0.25.0",
+    "luxon": "^2.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.26.1",
+    "react-hook-form": "^7.27.0",
     "react-query": "^3.34.14",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
@@ -50,7 +52,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unicorn": "^40.0.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.4",
     "jest-watch-typeahead": "^0.6.5",
     "lint-staged": "^12.3.3",
     "prettier": "2.4.0",
@@ -64,8 +66,10 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "format": "prettier-eslint --write \"./{config,src}/**/*.{ts,tsx,js,jsx,css}\"",
+    "pre-commit": "lint-staged",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "delete": "husky uninstall",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.(ts|tsx)": [

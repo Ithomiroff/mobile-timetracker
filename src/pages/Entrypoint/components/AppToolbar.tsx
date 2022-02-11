@@ -8,12 +8,13 @@ import { AppToolbarProps } from '../domain/Props';
 
 const AppToolbar: React.FC<AppToolbarProps> = ({
     user,
+    avatar,
     onOpen,
 }) => {
     const letters = user ? user.firstName[0] + user.lastName[0] : '';
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Container maxWidth="sm">
                 <Grid container={ true } alignItems="center" justifyContent="space-between">
                     <Grid item={ true }>
@@ -31,9 +32,7 @@ const AppToolbar: React.FC<AppToolbarProps> = ({
                         <IconButton
                             color="inherit"
                         >
-                            <Avatar
-                                src="https://my.mmtr.ru/ts-rest/avatar/employeePhoto/false/259.jpg"
-                            >
+                            <Avatar src={ avatar }>
                                 { letters }
                             </Avatar>
                         </IconButton>
