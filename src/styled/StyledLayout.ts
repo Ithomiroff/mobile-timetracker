@@ -8,5 +8,5 @@ export const StyledRoot = styled('div')({
 
 export const StyledRootContent = styled('main')`
     flex-grow: 1;
-    padding-top: ${({ theme }) => theme.spacing(6.5)};
+    padding-top: ${({ theme }) => theme.spacing(8)};
 `;

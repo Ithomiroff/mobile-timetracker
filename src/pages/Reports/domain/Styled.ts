@@ -26,13 +26,29 @@ export const StyledReportsItem = styled('div')`
     width: 100%;
 `;
 
-export const StyledReportItem = styled('div')`
+export const StyledReportItem = styled('div')<{$warn?: boolean; $dayOff?: boolean}>`
     width: 100%;
     padding: ${({ theme }) => theme.spacing(0.7)};
     border-radius: 4px;
-    background-color: ${({ theme }) => theme.palette.success.main};
+    background-color: ${({ theme, $warn, $dayOff }) => {
+        if ($warn) {
+            return theme.palette.warning.main;
+        }
+
+        if ($dayOff) {
+            return theme.palette.success.light;
+        }
+
+        return theme.palette.success.main;
+    }};
     margin-bottom: ${({ theme }) => theme.spacing(0.5)};
-    color: ${({ theme }) => theme.palette.primary.contrastText};
+    color: ${({ theme, $warn, $dayOff }) => {
+        if ($warn || $dayOff) {
+            return theme.palette.primary.main;
+        }
+
+        return theme.palette.primary.contrastText;
+    }};
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -2,13 +2,13 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 
-import { ReportDto } from '../../../types/ReportDto';
 import { StyledReport, StyledReportDay, StyledReportsItem } from '../domain/Styled';
+import { ReportItem } from '../domain/Types';
 
-import ReportItem from './ReportItem';
+import ReportLayout from './ReportLayout';
 
-const DayReport: React.FC<{item: ReportDto}> = ({ item }) => {
-    const date = DateTime.fromISO(item.date).setLocale('ru');
+const DayReport: React.FC<{item: ReportItem}> = ({ item }) => {
+    const date = DateTime.fromISO(item.wDate);
 
     return (
         <StyledReport>
@@ -17,9 +17,8 @@ const DayReport: React.FC<{item: ReportDto}> = ({ item }) => {
                 <Typography variant="subtitle1" fontWeight={ 600 }>{ date.toFormat('d') }</Typography>
             </StyledReportDay>
             <StyledReportsItem>
-                <ReportItem
-                    text={ item.comment }
-                    time={ item.time }
+                <ReportLayout
+                    report={ item }
                 />
             </StyledReportsItem>
         </StyledReport>

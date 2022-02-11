@@ -1,39 +1,58 @@
 import React from 'react';
-import { useMutation } from 'react-query';
+import { useQuery } from 'react-query';
+import { DateTime } from 'luxon';
 
-import { ReportDto } from '../../../types/ReportDto';
+import { useUser } from '../../../hooks/UseUser';
+import { ReportsCalendarDto } from '../../../types/ReportDto';
 
-import { reportsSearchBody } from './ReportsSearch';
+import { createReportsItems } from './CreateReportsItems';
 import { getReports } from './Requests';
+import { ReportItem, ReportsOffset } from './Types';
 
-const requestBody = reportsSearchBody({
-    clientId: 0,
-    comment: null,
-    employeeId: 259,
-    endDate: '2100-01-01',
-    orderIndex: null,
-    orderName: null,
-    projectId: 0,
-    startDate: '2000-01-01',
-});
+const now = DateTime.now();
+const nowOffset = now;
+
+const initialOffset: ReportsOffset = {
+    startDate: nowOffset.set({ month: nowOffset.month - 1 }).toISODate(),
+    endDate: nowOffset.toISODate(),
+};
 
 const useReports = () => {
-    const [reports, setReports] = React.useState<ReportDto[]>([]);
+    const { user } = useUser();
 
-    const [page, setPage] = React.useState<number>(0);
+    const [reports, setReports] = React.useState<ReportItem[]>([]);
 
-    const { mutate, isLoading } = useMutation(getReports, {
-        onSuccess: (data) => setReports(data.reverse()),
-    });
+    const [offset, setOffset] = React.useState<ReportsOffset>(initialOffset);
 
-    React.useEffect(() => {
-        mutate(requestBody(page));
-    }, [page]);
+    const {
+        isLoading,
+        refetch,
+    } = useQuery(
+        'reports',
+        () => getReports(user?.id as number, offset.startDate, offset.endDate),
+        {
+            onSuccess: (data: ReportsCalendarDto) => {
+                setReports(createReportsItems(data));
+            },
+        },
+    );
+
+    const onPrev = () => {
+        setOffset((prev) => {
+            const start = DateTime.fromISO(prev.startDate);
+
+            return {
+                endDate: prev.startDate,
+                startDate: start.set({ month: start.month - 1 }).toISODate(),
+            };
+        });
+        refetch();
+    };
 
     return {
         isLoading,
         reports,
-        onChangePage: setPage,
+        onPrev,
     };
 };
 

@@ -1,7 +1,13 @@
-import { postReq } from '../../../config/api';
-import { ReportDto, ReportSearchDto } from '../../../types/ReportDto';
+import { getReq } from '../../../config/api';
+import { ReportsCalendarDto } from '../../../types/ReportDto';
 
-const getReports = (body: ReportSearchDto) => postReq<ReportDto[]>('/userRecords/getUserReports', body);
+const getReports = async (userId: number, startDate: string, endDate: string) => {
+    const url = `/userRecords/getUserReportsWithProductionCalendarByDates/${userId}/${startDate}/${endDate}`;
+
+    const response = await getReq<ReportsCalendarDto>(url);
+
+    return response;
+};
 
 export {
     getReports,

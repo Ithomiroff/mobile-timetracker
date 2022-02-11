@@ -17,3 +17,17 @@ export type ReportDto = {
     time: number;
     date: string;
 };
+
+export type CalendarDay = {
+    isBlockingDay: boolean;
+    isDAyOff: boolean;
+    isDeleted: boolean;
+    isHoliday: boolean;
+    wDate: string;
+    wrkCntHrs: number;
+};
+
+export type ReportsCalendarDto = {
+    reports: ReportDto[];
+    calendar: CalendarDay[];
+};
