@@ -66,10 +66,9 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "format": "prettier-eslint --write \"./{config,src}/**/*.{ts,tsx,js,jsx,css}\"",
-    "pre-commit": "lint-staged",
     "prepare": "husky install",
     "delete": "husky uninstall",
-    "lint-staged": "lint-staged"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.(ts|tsx)": [
