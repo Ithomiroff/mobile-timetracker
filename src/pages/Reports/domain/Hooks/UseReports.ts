@@ -46,7 +46,7 @@ const useReports = () => {
             return;
         }
 
-        if (document.body.scrollHeight - (window.innerHeight + window.scrollY) === 0) {
+        if (document.body.scrollHeight - (window.innerHeight + window.scrollY) < 700) {
             setOffset((prev) => {
                 const start = DateTime.fromISO(prev.startDate);
 
