@@ -1,10 +1,19 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
+import { ReportDto } from '../../../types/ReportDto';
+import { timeFormat } from '../../../utils/TimeFormat';
 import { ReportsLayoutProps } from '../domain/Props';
 import { StyledReportItem, StyledReportText } from '../domain/Styled';
 
-const ReportLayout: React.FC<ReportsLayoutProps> = ({ report }) => {
+const ReportLayout: React.FC<ReportsLayoutProps> = ({
+    report,
+    onSelect,
+}) => {
+    const select = (item?: ReportDto) => () => onSelect(item);
+
+    const formatTime = React.useCallback(timeFormat, []);
+
     if (report.isDAyOff) {
         return (
             <StyledReportItem $dayOff={ true }>
@@ -21,9 +30,14 @@ const ReportLayout: React.FC<ReportsLayoutProps> = ({ report }) => {
         return (
             <React.Fragment>
                 { report.reports.map((item) => (
-                    <StyledReportItem $warn={ !report.dayFilled }>
+                    <StyledReportItem
+                        key={ item.workRecordId }
+                        tabIndex={ -1 }
+                        $warn={ report.hoursFilledCount < 8 }
+                        onClick={ select(item) }
+                    >
                         <StyledReportText variant="caption">{ item.comment }</StyledReportText>
-                        <Typography variant="body1">{ item.time } ч.</Typography>
+                        <Typography variant="body1">{ formatTime(item.time) }</Typography>
                     </StyledReportItem>
                 )) }
             </React.Fragment>
@@ -31,10 +45,13 @@ const ReportLayout: React.FC<ReportsLayoutProps> = ({ report }) => {
     }
 
     return (
-        <StyledReportItem $warn={ true }>
-            <StyledReportText
-                variant="caption"
-            >Заполните отчет
+        <StyledReportItem
+            tabIndex={ -1 }
+            $warn={ true }
+            onClick={ select() }
+        >
+            <StyledReportText variant="caption">
+                Заполните отчет
             </StyledReportText>
         </StyledReportItem>
     );

@@ -8,8 +8,8 @@ import { Settings } from 'luxon';
 import theme from './config/Theme';
 import { UserProvider } from './hooks/UseUser';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -31,4 +31,4 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
-// serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();

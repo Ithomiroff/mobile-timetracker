@@ -16,6 +16,8 @@ export type ReportDto = {
     comment: string;
     time: number;
     date: string;
+    companyName: string;
+    projectName: string;
 };
 
 export type CalendarDay = {

@@ -2,7 +2,7 @@ import { CalendarDay, ReportDto } from '../../../types/ReportDto';
 
 export type ReportItem = CalendarDay & {
     reports: ReportDto[];
-    dayFilled: boolean;
+    hoursFilledCount: number;
     dayFuture: boolean;
 };
 
