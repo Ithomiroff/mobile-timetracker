@@ -1,4 +1,6 @@
-import { Container, styled, Typography } from '@mui/material';
+import {
+    Box, Container, Grid, styled, Typography,
+} from '@mui/material';
 
 export const StyledContainer = styled(Container)`
     height: 100%;
@@ -52,12 +54,48 @@ export const StyledReportItem = styled('div')<{$warn?: boolean; $dayOff?: boolea
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transform: scale(1);
+    transition: transform .4s ease, box-shadow .2s ease-out;
+    user-select: none;
+
+    &:active {
+        transform: scale(0.7);
+        box-shadow: ${({ theme }) => theme.shadows[5]};
+    }
 `;
 
 export const StyledReportText = styled(Typography)`
-    max-width: 65vw;
+    max-width: 50vw;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2rem;
+`;
+
+export const StyledDetailHeader = styled(Box)`
+    display: flex;
+    align-items: center;
+    padding-top: ${({ theme }) => theme.spacing(1.5)};
+    padding-bottom: ${({ theme }) => theme.spacing(1.5)};
+`;
+
+export const StyledDetailContainer = styled(Grid)`
+    padding-top: ${({ theme }) => theme.spacing(2)};
+    padding-bottom: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const StyledDayNum = styled('div')<{isToday: boolean}>`
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${({ theme, isToday }) => isToday && theme.palette.primary.main};
+    color: ${({ theme, isToday }) => isToday && theme.palette.primary.contrastText};
+    border-radius: 50%;
+`;
+
+export const StyledSpinner = styled('div')`
+    text-align: center;
+    height: 6vh;
 `;

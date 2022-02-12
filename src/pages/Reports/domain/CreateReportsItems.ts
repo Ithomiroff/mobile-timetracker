@@ -8,17 +8,17 @@ export const createReportsItems = ({ reports, calendar }: ReportsCalendarDto): R
     return calendar.map((day) => {
         const item: ReportItem = {
             ...day,
-            dayFilled: false,
+            hoursFilledCount: 0,
             dayFuture: DateTime.fromISO(day.wDate) > DateTime.now(),
             reports: reports.filter((rep) => rep.date === day.wDate),
         };
 
         if (!item.isDAyOff) {
-            item.dayFilled = reports
+            item.hoursFilledCount = reports
                 .filter((rep) => rep.date === day.wDate)
-                .reduce((res, value) => res + value.time, 0) === 8;
+                .reduce((res, value) => res + value.time, 0);
         }
 
         return item;
-    }) as ReportItem[];
+    }).reverse() as ReportItem[];
 };

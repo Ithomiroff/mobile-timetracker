@@ -1,35 +1,47 @@
 import React from 'react';
+import { CircularProgress } from '@mui/material';
+
+import { BottomModal } from '../../components/BottomModal';
 
 import DayReport from './components/DayReport';
-import { StyledContainer } from './domain/Styled';
-import useReports from './domain/UseReports';
+import ReportDetail from './components/ReportDetail';
+import useDetailReport from './domain/Hooks/UseDetailReport';
+import useReports from './domain/Hooks/UseReports';
+import { StyledContainer, StyledSpinner } from './domain/Styled';
 
 const Reports: React.FC = () => {
-    const { reports, onPrev } = useReports();
+    const { reports, isFetching } = useReports();
 
-    React.useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY < 500) {
-                onPrev();
-            }
-        });
-    }, []);
-
-    React.useLayoutEffect(() => {
-        if (reports.length > 0) {
-            window.scrollTo(0, document.body.scrollHeight);
-        }
-    }, [reports]);
+    const { report, selectReport, unSelectReport } = useDetailReport();
 
     return (
-        <StyledContainer maxWidth="sm">
-            { reports.map((item) => (
-                <DayReport
-                    key={ item.wDate }
-                    item={ item }
-                />
-            )) }
-        </StyledContainer>
+        <React.Fragment>
+            <StyledContainer maxWidth="sm">
+                { reports.map((item) => (
+                    <DayReport
+                        key={ item.wDate }
+                        report={ item }
+                        onSelect={ selectReport }
+                    />
+                )) }
+
+                <StyledSpinner>
+                    { isFetching && <CircularProgress color="primary" size={ 20 } /> }
+                </StyledSpinner>
+            </StyledContainer>
+
+            <BottomModal
+                open={ Boolean(report) }
+                onClose={ unSelectReport }
+                onOpen={ unSelectReport }
+            >
+                { report && (
+                    <ReportDetail
+                        report={ report }
+                    />
+                ) }
+            </BottomModal>
+        </React.Fragment>
     );
 };
 
