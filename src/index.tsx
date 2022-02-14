@@ -17,17 +17,15 @@ const queryClient = new QueryClient();
 Settings.defaultLocale = 'ru';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <QueryClientProvider client={ queryClient }>
-            <ThemeProvider theme={ theme }>
-                <UserProvider>
-                    <Router>
-                        <App />
-                    </Router>
-                </UserProvider>
-            </ThemeProvider>
-        </QueryClientProvider>
-    </React.StrictMode>,
+    <QueryClientProvider client={ queryClient }>
+        <ThemeProvider theme={ theme }>
+            <UserProvider>
+                <Router>
+                    <App />
+                </Router>
+            </UserProvider>
+        </ThemeProvider>
+    </QueryClientProvider>,
     document.getElementById('root'),
 );
 

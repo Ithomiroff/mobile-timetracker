@@ -1,5 +1,5 @@
 import {
-    Box, Container, Grid, styled, Typography,
+    Container, Fab, Grid, styled, Typography,
 } from '@mui/material';
 
 export const StyledContainer = styled(Container)`
@@ -11,6 +11,7 @@ export const StyledReport = styled('div')`
     align-items: flex-start;
     padding-top: ${({ theme }) => theme.spacing(1)};
     padding-bottom: ${({ theme }) => theme.spacing(1)};
+    padding-right: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledReportDay = styled('div')`
@@ -72,13 +73,6 @@ export const StyledReportText = styled(Typography)`
     line-height: 1.2rem;
 `;
 
-export const StyledDetailHeader = styled(Box)`
-    display: flex;
-    align-items: center;
-    padding-top: ${({ theme }) => theme.spacing(1.5)};
-    padding-bottom: ${({ theme }) => theme.spacing(1.5)};
-`;
-
 export const StyledDetailContainer = styled(Grid)`
     padding-top: ${({ theme }) => theme.spacing(2)};
     padding-bottom: ${({ theme }) => theme.spacing(2)};
@@ -98,4 +92,34 @@ export const StyledDayNum = styled('div')<{isToday: boolean}>`
 export const StyledSpinner = styled('div')`
     text-align: center;
     height: 6vh;
+`;
+
+export const StyledReportContainer = styled(StyledContainer)`
+    padding-right: 0;
+`;
+
+export const StyledVirtualContainer = styled('div')`
+    height: ${window.innerHeight - 64}px;
+    width: 100%;
+    overflow-y: auto;
+`;
+
+export const StyledVirtualInner = styled('div')<{height: number}>`
+    height: ${({ height }) => height}px;
+    width: 100%;
+    position: relative;
+`;
+
+export const StyledReportWrap = styled('div')<{transform: number}>(({ transform }) => ({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    transform: `translateY(${transform}px)`,
+}));
+
+export const StyledFab = styled(Fab)`
+    position: fixed;
+    bottom: 2%;
+    right: 5%;
 `;
