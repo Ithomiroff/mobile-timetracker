@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { useUser } from '../../hooks/UseUser';
 import { StyledRoot, StyledRootContent } from '../../styled/StyledLayout';
+import { AddReport } from '../AddReport';
 import { Reports } from '../Reports';
 
 import AppToolbar from './components/AppToolbar';
@@ -30,6 +31,7 @@ const Entrypoint: React.FC = () => {
             <StyledRootContent>
                 <Routes>
                     <Route index={ true } element={ <Reports /> } />
+                    <Route path="add-report" element={ <AddReport /> } />
                 </Routes>
             </StyledRootContent>
             <Sidebar

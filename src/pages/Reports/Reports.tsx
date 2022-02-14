@@ -1,5 +1,7 @@
 import React from 'react';
-import { CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useVirtual } from 'react-virtual';
+import AddIcon from '@mui/icons-material/Add';
 
 import { BottomModal } from '../../components/BottomModal';
 
@@ -7,28 +9,64 @@ import DayReport from './components/DayReport';
 import ReportDetail from './components/ReportDetail';
 import useDetailReport from './domain/Hooks/UseDetailReport';
 import useReports from './domain/Hooks/UseReports';
-import { StyledContainer, StyledSpinner } from './domain/Styled';
+import {
+    StyledFab,
+    StyledReportContainer, StyledReportWrap,
+    StyledVirtualContainer,
+    StyledVirtualInner,
+} from './domain/Styled';
 
 const Reports: React.FC = () => {
-    const { reports, isFetching } = useReports();
+    const { reports, isFetching, loadMore } = useReports();
 
     const { report, selectReport, unSelectReport } = useDetailReport();
 
+    const navigate = useNavigate();
+
+    const parentRef = React.useRef<HTMLDivElement | null>(null);
+
+    const rowVirtualizer = useVirtual({
+        size: reports.length,
+        parentRef,
+    });
+
+    React.useEffect(() => {
+        const [lastItem] = [...rowVirtualizer.virtualItems].reverse();
+
+        if (!lastItem) {
+            return;
+        }
+
+        if (lastItem.index >= reports.length - 1 && !isFetching) {
+            loadMore();
+        }
+    }, [
+        rowVirtualizer.virtualItems,
+        isFetching,
+    ]);
+
+    const goToAdd = () => navigate('add-report');
+
     return (
         <React.Fragment>
-            <StyledContainer maxWidth="sm">
-                { reports.map((item) => (
-                    <DayReport
-                        key={ item.wDate }
-                        report={ item }
-                        onSelect={ selectReport }
-                    />
-                )) }
-
-                <StyledSpinner>
-                    { isFetching && <CircularProgress color="primary" size={ 20 } /> }
-                </StyledSpinner>
-            </StyledContainer>
+            <StyledReportContainer maxWidth="sm">
+                <StyledVirtualContainer ref={ parentRef }>
+                    <StyledVirtualInner height={ rowVirtualizer.totalSize }>
+                        { rowVirtualizer.virtualItems.map((row) => (
+                            <StyledReportWrap
+                                key={ row.index }
+                                ref={ row.measureRef }
+                                transform={ row.start }
+                            >
+                                <DayReport
+                                    report={ reports[row.index] }
+                                    onSelect={ selectReport }
+                                />
+                            </StyledReportWrap>
+                        )) }
+                    </StyledVirtualInner>
+                </StyledVirtualContainer>
+            </StyledReportContainer>
 
             <BottomModal
                 open={ Boolean(report) }
@@ -41,6 +79,10 @@ const Reports: React.FC = () => {
                     />
                 ) }
             </BottomModal>
+
+            <StyledFab color="primary" size="small" onClick={ goToAdd }>
+                <AddIcon />
+            </StyledFab>
         </React.Fragment>
     );
 };
