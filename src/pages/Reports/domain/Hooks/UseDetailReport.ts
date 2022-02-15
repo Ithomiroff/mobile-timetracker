@@ -7,7 +7,11 @@ const useDetailReport = () => {
 
     const unSelectReport = () => setReport(null);
 
-    const selectReport = (item?: ReportDto) => item && setReport(item);
+    const selectReport = (item?: ReportDto) => {
+        if (item) {
+            setReport(item);
+        }
+    };
 
     return {
         report,

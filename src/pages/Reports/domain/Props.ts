@@ -7,6 +7,7 @@ export type DayReportProps = ReportsLayoutProps;
 export type ReportsLayoutProps = {
     report: ReportItem;
     onSelect: (item?: ReportDto) => void;
+    onEdit: (item?: ReportDto) => void;
 };
 
 export type ReportDetailProps = {
