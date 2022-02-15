@@ -25,6 +25,8 @@ const Reports: React.FC = () => {
 
     const parentRef = React.useRef<HTMLDivElement | null>(null);
 
+    const test = React.useRef<HTMLDivElement | null>(null);
+
     const rowVirtualizer = useVirtual({
         size: reports.length,
         parentRef,
@@ -51,7 +53,7 @@ const Reports: React.FC = () => {
         <React.Fragment>
             <StyledReportContainer maxWidth="sm">
                 <StyledVirtualContainer ref={ parentRef }>
-                    <StyledVirtualInner height={ rowVirtualizer.totalSize }>
+                    <StyledVirtualInner height={ rowVirtualizer.totalSize } ref={ test }>
                         { rowVirtualizer.virtualItems.map((row) => (
                             <StyledReportWrap
                                 key={ row.index }
@@ -61,6 +63,7 @@ const Reports: React.FC = () => {
                                 <DayReport
                                     report={ reports[row.index] }
                                     onSelect={ selectReport }
+                                    onEdit={ () => {} }
                                 />
                             </StyledReportWrap>
                         )) }

@@ -60,7 +60,7 @@ export const StyledReportItem = styled('div')<{$warn?: boolean; $dayOff?: boolea
     user-select: none;
 
     &:active {
-        transform: scale(0.7);
+        transform: scale(0.9);
         box-shadow: ${({ theme }) => theme.shadows[5]};
     }
 `;

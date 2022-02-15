@@ -19,7 +19,11 @@ const captionStyle: SxProps = {
     textAlign: 'right',
 };
 
-const DayReport: React.FC<DayReportProps> = ({ report, onSelect }) => {
+const DayReport: React.FC<DayReportProps> = ({
+    report,
+    onSelect,
+    onEdit,
+}) => {
     const date = DateTime.fromISO(report.wDate);
 
     const isToday = date.hasSame(DateTime.local(), 'day');
@@ -27,7 +31,7 @@ const DayReport: React.FC<DayReportProps> = ({ report, onSelect }) => {
     const formatTime = React.useCallback(timeFormat, []);
 
     return (
-        <StyledReport>
+        <StyledReport className="test">
             <StyledReportDay>
                 <Typography variant="caption">{ date.toFormat('EEE') }</Typography>
                 <StyledDayNum isToday={ isToday }>
@@ -41,6 +45,7 @@ const DayReport: React.FC<DayReportProps> = ({ report, onSelect }) => {
                 <ReportLayout
                     report={ report }
                     onSelect={ onSelect }
+                    onEdit={ onEdit }
                 />
                 { !report.isDAyOff && 8 - report.hoursFilledCount > 0 && (
                     <Typography
