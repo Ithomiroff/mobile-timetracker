@@ -1,11 +1,11 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { DateTime } from 'luxon';
 
 import { useUser } from '../../../../hooks/UseUser';
 import { ReportsCalendarDto } from '../../../../types/ReportDto';
 import { createReportsItems } from '../CreateReportsItems';
-import { getReports } from '../Requests';
+import { getReports, removeReport } from '../Requests';
 import { ReportItem, ReportsOffset } from '../Types';
 
 const now = DateTime.now();
@@ -16,7 +16,7 @@ const initialOffset: ReportsOffset = {
     endDate: nowOffset.toISODate(),
 };
 
-const useReports = () => {
+const useReports = (closeDetail: () => void) => {
     const { user } = useUser();
 
     const [reports, setReports] = React.useState<ReportItem[]>([]);
@@ -35,34 +35,13 @@ const useReports = () => {
         },
     );
 
-    // const refFetching = React.useRef<boolean>(false);
-    //
-    // React.useEffect(() => {
-    //     refFetching.current = isFetching;
-    // }, [isFetching]);
-    //
-    // const loadMore = () => {
-    //     if (refFetching.current) {
-    //         return;
-    //     }
-    //
-    //     if (document.body.scrollHeight - (window.innerHeight + window.scrollY) < 700) {
-    //         setOffset((prev) => {
-    //             const start = DateTime.fromISO(prev.startDate);
-    //
-    //             return {
-    //                 endDate: prev.startDate,
-    //                 startDate: start.set({ month: start.month - 1 }).toISODate(),
-    //             };
-    //         });
-    //     }
-    // };
-
-    // React.useEffect(() => {
-    //     window.addEventListener('scroll', loadMore, false);
-    //
-    //     return () => window.removeEventListener('scroll', loadMore, false);
-    // }, []);
+    const deleteMutate = useMutation(removeReport, {
+        onSuccess: (id: number | null) => {
+            if (id) {
+                closeDetail();
+            }
+        },
+    });
 
     const loadMore = () => {
         setOffset((prev) => {
@@ -75,10 +54,15 @@ const useReports = () => {
         });
     };
 
+    const deleteReport = (id: number) => {
+        deleteMutate.mutate(id);
+    };
+
     return {
         isFetching,
         reports,
         loadMore,
+        deleteReport,
     };
 };
 

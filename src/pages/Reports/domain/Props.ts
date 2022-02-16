@@ -12,4 +12,5 @@ export type ReportsLayoutProps = {
 
 export type ReportDetailProps = {
     report: ReportDto;
+    onDetail: (id: number) => void;
 };

@@ -17,9 +17,19 @@ import {
 } from './domain/Styled';
 
 const Reports: React.FC = () => {
-    const { reports, isFetching, loadMore } = useReports();
+    const {
+        report,
+        selectReport,
+        unSelectReport,
+        onClose,
+    } = useDetailReport();
 
-    const { report, selectReport, unSelectReport } = useDetailReport();
+    const {
+        reports,
+        isFetching,
+        loadMore,
+        deleteReport,
+    } = useReports(onClose);
 
     const navigate = useNavigate();
 
@@ -79,6 +89,7 @@ const Reports: React.FC = () => {
                 { report && (
                     <ReportDetail
                         report={ report }
+                        onDetail={ deleteReport }
                     />
                 ) }
             </BottomModal>

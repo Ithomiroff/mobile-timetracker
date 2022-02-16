@@ -13,8 +13,11 @@ const useDetailReport = () => {
         }
     };
 
+    const onClose = () => setReport(null);
+
     return {
         report,
+        onClose,
         selectReport,
         unSelectReport,
     };

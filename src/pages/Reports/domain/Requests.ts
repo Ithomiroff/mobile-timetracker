@@ -9,6 +9,13 @@ const getReports = async (userId: number, startDate: string, endDate: string) =>
     return response;
 };
 
+const removeReport = async (id: number) => {
+    const response = await getReq<boolean>(`work_record/delete/${id}/`);
+
+    return response ? id : null;
+};
+
 export {
     getReports,
+    removeReport,
 };
