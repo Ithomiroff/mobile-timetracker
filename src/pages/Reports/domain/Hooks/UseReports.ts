@@ -25,6 +25,7 @@ const useReports = (closeDetail: () => void) => {
 
     const {
         isFetching,
+        refetch,
     } = useQuery(
         ['reports', offset],
         () => getReports(user?.id as number, offset.startDate, offset.endDate),
@@ -40,7 +41,8 @@ const useReports = (closeDetail: () => void) => {
             if (id) {
                 closeDetail();
                 setReports([]);
-                setOffset({ ...initialOffset });
+                setOffset(initialOffset);
+                refetch();
             }
         },
     });
