@@ -4,6 +4,7 @@ import { Box, Container, Grow } from '@mui/material';
 import { SxProps } from '@mui/system';
 
 import { FormTextField } from '../../components/FormTextField';
+import { SnackMessage } from '../../components/SnackMessage';
 
 import useLogin from './domain/hooks/UseLogin';
 import { StyledLoginRoot, StyledLogo } from './domain/Styled';
@@ -21,6 +22,7 @@ const Login: React.FC = () => {
         handleSubmit,
         onLogin,
         isLoading,
+        snackbar,
     } = useLogin();
 
     return (
@@ -62,6 +64,12 @@ const Login: React.FC = () => {
                     </LoadingButton>
                 </Container>
             </Grow>
+
+            <SnackMessage
+                { ...snackbar }
+                severity="error"
+                color="error"
+            />
         </StyledLoginRoot>
     );
 };

@@ -32,7 +32,7 @@ const ReportLayout: React.FC<ReportsLayoutProps> = ({
     if (report.isDAyOff) {
         return (
             <StyledReportItem $dayOff={ true }>
-                <StyledReportText variant="caption" sx={ { color: 'primary.main' } }>Выходной</StyledReportText>
+                <StyledReportText variant="body2" sx={ { color: 'primary.main' } }>Выходной</StyledReportText>
             </StyledReportItem>
         );
     }
@@ -55,7 +55,7 @@ const ReportLayout: React.FC<ReportsLayoutProps> = ({
                             $warn={ report.hoursFilledCount < 8 }
                             onClick={ select(item) }
                         >
-                            <StyledReportText variant="caption">{ item.comment }</StyledReportText>
+                            <StyledReportText variant="body2">{ item.comment }</StyledReportText>
                             <Typography variant="body1">{ formatTime(item.time) }</Typography>
                         </StyledReportItem>
                     </Hammer>
@@ -74,7 +74,7 @@ const ReportLayout: React.FC<ReportsLayoutProps> = ({
                 $warn={ true }
                 onClick={ select() }
             >
-                <StyledReportText variant="caption">
+                <StyledReportText variant="body2">
                     Заполните отчет
                 </StyledReportText>
             </StyledReportItem>

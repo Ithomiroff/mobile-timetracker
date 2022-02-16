@@ -18,6 +18,8 @@ export type ReportDto = {
     date: string;
     companyName: string;
     projectName: string;
+    client: number;
+    project: number;
 };
 
 export type CalendarDay = {

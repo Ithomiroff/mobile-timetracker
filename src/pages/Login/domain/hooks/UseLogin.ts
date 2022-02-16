@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
+import useSnackbar from '../../../../components/SnackMessage/domain/UseSnackbar';
 import { setAuthToken } from '../../../../config/TokenStorage';
 import { useUser } from '../../../../hooks/UseUser';
 import { loginAction } from '../Requests';
@@ -19,6 +20,8 @@ const useLogin = () => {
         mode: 'onSubmit',
     });
 
+    const snackbar = useSnackbar();
+
     const navigate = useNavigate();
 
     const { setUser } = useUser();
@@ -33,6 +36,7 @@ const useLogin = () => {
                 navigate('/');
             }
         },
+        onError: (err: Error) => snackbar.openSnack(err.message),
     });
 
     const onLogin = (body: LoginForm) => mutate(body);
@@ -42,6 +46,7 @@ const useLogin = () => {
         onLogin,
         handleSubmit,
         isLoading,
+        snackbar,
     };
 };
 

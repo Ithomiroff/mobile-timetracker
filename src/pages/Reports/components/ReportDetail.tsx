@@ -17,6 +17,7 @@ const commentText: SxProps = {
     maxHeight: '12vh',
     overflowY: 'auto',
     display: 'block',
+    wordBreak: 'break-all',
 };
 
 const ReportDetail: React.FC<ReportDetailProps> = ({

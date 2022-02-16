@@ -1,3 +1,4 @@
+import { CommonDto } from '../../../types/CommonDto';
 import { UserDto } from '../../../types/UserDto';
 
 export type AuthDto = {
@@ -5,10 +6,6 @@ export type AuthDto = {
     password: string;
 };
 
-export type AuthResponseDto = {
-    isSuccess: boolean;
-    message: string;
-    object: UserDto;
-};
+export type AuthResponseDto = CommonDto<UserDto>;
 
 export type LoginForm = AuthDto;

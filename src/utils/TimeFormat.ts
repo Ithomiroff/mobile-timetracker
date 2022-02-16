@@ -7,7 +7,7 @@ export const timeFormat = (value: number) => {
 
     const [hours, minutes] = value.toString().split('.');
 
-    const formattedMinutes = `${formatMinutes(Number(`0.${minutes}`))} мин.`;
+    const formattedMinutes = `${formatMinutes(Number(`0.${minutes}`))} м.`;
 
     if (hours === '0') {
         return formattedMinutes;

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Container, Fab, Grid, styled, Typography,
 } from '@mui/material';
@@ -9,7 +10,6 @@ export const StyledContainer = styled(Container)`
 export const StyledReport = styled('div')`
     display: flex;
     align-items: flex-start;
-    padding-top: ${({ theme }) => theme.spacing(1)};
     padding-bottom: ${({ theme }) => theme.spacing(1)};
     padding-right: ${({ theme }) => theme.spacing(2)};
 `;
@@ -31,8 +31,8 @@ export const StyledReportsItem = styled('div')`
 
 export const StyledReportItem = styled('div')<{$warn?: boolean; $dayOff?: boolean}>`
     width: 100%;
-    padding: ${({ theme }) => theme.spacing(0.7)};
-    border-radius: 4px;
+    padding: ${({ theme }) => theme.spacing(0.8)};
+    border-radius: 12px;
     background-color: ${({ theme, $warn, $dayOff }) => {
         if ($warn) {
             return theme.palette.warning.main;
@@ -78,7 +78,8 @@ export const StyledDetailContainer = styled(Grid)`
     padding-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
-export const StyledDayNum = styled('div')<{isToday: boolean}>`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const StyledDayNum = styled(({ isToday, ...props }: {isToday: boolean}) => <div { ...props } />)`
     width: 30px;
     height: 30px;
     display: flex;

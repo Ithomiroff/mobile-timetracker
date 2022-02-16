@@ -31,10 +31,10 @@ const DayReport: React.FC<DayReportProps> = ({
     const formatTime = React.useCallback(timeFormat, []);
 
     return (
-        <StyledReport className="test">
+        <StyledReport>
             <StyledReportDay>
                 <Typography variant="caption">{ date.toFormat('EEE') }</Typography>
-                <StyledDayNum isToday={ isToday }>
+                <StyledDayNum { ...{ isToday } }>
                     <Typography
                         variant="subtitle1"
                     >{ date.toFormat('d') }

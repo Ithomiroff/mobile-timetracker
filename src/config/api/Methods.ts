@@ -26,7 +26,7 @@ const postAuthorization = async (url: string, body: any): Promise<AuthResponseDt
     const data = response.data as AuthResponseDto;
 
     if (!data.isSuccess) {
-        throw new Error(data.message);
+        throw new Error(data.message || '');
     }
 
     return response.data as AuthResponseDto;

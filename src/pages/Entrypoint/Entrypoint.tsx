@@ -39,6 +39,7 @@ const Entrypoint: React.FC = () => {
                 onOpen={ onOpen }
                 onClose={ onClose }
             />
+            <div id="snack-bar-container" />
         </StyledRoot>
     );
 };
