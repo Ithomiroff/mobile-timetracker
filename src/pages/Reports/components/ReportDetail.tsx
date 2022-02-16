@@ -37,7 +37,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
         <List>
             <ListItem disablePadding={ true }>
                 <Container maxWidth="sm">
-                    <Stack direction="row" alignItems="center" justifyContent="end">
+                    <Stack direction="row" alignItems="center" justifyContent="flex-end">
                         <IconButton>
                             <EditIcon />
                         </IconButton>

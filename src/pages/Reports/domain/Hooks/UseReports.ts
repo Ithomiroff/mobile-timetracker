@@ -21,7 +21,7 @@ const useReports = (closeDetail: () => void) => {
 
     const [reports, setReports] = React.useState<ReportItem[]>([]);
 
-    const [offset, setOffset] = React.useState<ReportsOffset>(initialOffset);
+    const [offset, setOffset] = React.useState<ReportsOffset>({ ...initialOffset });
 
     const {
         isFetching,
@@ -39,6 +39,8 @@ const useReports = (closeDetail: () => void) => {
         onSuccess: (id: number | null) => {
             if (id) {
                 closeDetail();
+                setReports([]);
+                setOffset({ ...initialOffset });
             }
         },
     });
