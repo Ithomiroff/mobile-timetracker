@@ -3,7 +3,7 @@ import { useMutation, useQuery } from 'react-query';
 import { DateTime } from 'luxon';
 
 import { useUser } from '../../../../hooks/UseUser';
-import { ReportsCalendarDto } from '../../../../types/ReportDto';
+import { ReportDto, ReportsCalendarDto } from '../../../../types/ReportDto';
 import { createReportsItems } from '../CreateReportsItems';
 import { getReports, removeReport } from '../Requests';
 import { ReportItem, ReportsOffset } from '../Types';
@@ -29,7 +29,6 @@ const useReports = (closeDetail: () => void) => {
 
     const {
         isFetching,
-        refetch,
     } = useQuery(
         ['reports', offset],
         () => getReports(user?.id as number, offset.startDate, offset.endDate),
@@ -44,12 +43,17 @@ const useReports = (closeDetail: () => void) => {
     );
 
     const deleteMutate = useMutation(removeReport, {
-        onSuccess: (id: number | null) => {
-            if (id) {
+        onSuccess: (report: ReportDto | null) => {
+            if (report) {
                 closeDetail();
-                setReports([]);
-                setOffset(initialOffset);
-                refetch();
+                setReports((prev) => {
+                    return prev.map((item) => {
+                        return {
+                            ...item,
+                            reports: item.reports.filter((rep) => rep.workRecordId !== report.workRecordId),
+                        };
+                    });
+                });
             }
         },
     });
@@ -65,8 +69,8 @@ const useReports = (closeDetail: () => void) => {
         });
     };
 
-    const deleteReport = (id: number) => {
-        deleteMutate.mutate(id);
+    const deleteReport = (report: ReportDto) => {
+        deleteMutate.mutate(report);
     };
 
     return {

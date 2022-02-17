@@ -88,9 +88,6 @@ export const StyledDayNum = styled(({ isToday, ...props }: {isToday: boolean}) =
     background-color: ${({ theme, isToday }) => isToday && theme.palette.primary.main};
     color: ${({ theme, isToday }) => isToday && theme.palette.primary.contrastText};
     border-radius: 50%;
-    p {
-        transform: translateY(2px);
-    }
 `;
 
 export const StyledSpinner = styled('div')`

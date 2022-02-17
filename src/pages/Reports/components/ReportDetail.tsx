@@ -5,10 +5,15 @@ import ArticleIcon from '@mui/icons-material/Article';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import {
     Container, IconButton,
-    List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Stack,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { DateTime } from 'luxon';
@@ -25,22 +30,22 @@ const commentText: SxProps = {
 
 const ReportDetail: React.FC<ReportDetailProps> = ({
     report,
-    onDetail,
+    onDelete,
 }) => {
     const date = DateTime.fromISO(report.date).toFormat('DDDD');
 
     const formatTime = React.useCallback(timeFormat, []);
 
-    const deleteReport = () => onDetail(report.workRecordId);
+    const deleteReport = () => onDelete(report);
 
     return (
         <List>
             <ListItem disablePadding={ true }>
                 <Container maxWidth="sm">
                     <Stack direction="row" alignItems="center" justifyContent="flex-end">
-                        <IconButton>
-                            <EditIcon />
-                        </IconButton>
+                        { /* <IconButton> */ }
+                        { /*    <EditIcon /> */ }
+                        { /* </IconButton> */ }
                         <IconButton onClick={ deleteReport }>
                             <DeleteIcon />
                         </IconButton>

@@ -114,7 +114,7 @@ const Reports: React.FC = () => {
                 { report && (
                     <ReportDetail
                         report={ report }
-                        onDetail={ deleteReport }
+                        onDelete={ deleteReport }
                     />
                 ) }
             </BottomModal>

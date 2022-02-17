@@ -12,7 +12,7 @@ export type ReportsLayoutProps = {
 
 export type ReportDetailProps = {
     report: ReportDto;
-    onDetail: (id: number) => void;
+    onDelete: (item: ReportDto) => void;
 };
 
 export type MonthReportProps = {

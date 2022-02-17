@@ -1,5 +1,5 @@
 import { getReq } from '../../../config/api';
-import { ReportsCalendarDto } from '../../../types/ReportDto';
+import { ReportDto, ReportsCalendarDto } from '../../../types/ReportDto';
 
 const getReports = async (userId: number, startDate: string, endDate: string) => {
     const url = `/userRecords/getUserReportsWithProductionCalendarByDates/${userId}/${startDate}/${endDate}`;
@@ -9,10 +9,10 @@ const getReports = async (userId: number, startDate: string, endDate: string) =>
     return response;
 };
 
-const removeReport = async (id: number) => {
-    const response = await getReq<boolean>(`work_record/delete/${id}/`);
+const removeReport = async (report: ReportDto) => {
+    const response = await getReq<boolean>(`work_record/delete/${report.workRecordId}/`);
 
-    return response ? id : null;
+    return response ? report : null;
 };
 
 export {
