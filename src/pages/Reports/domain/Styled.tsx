@@ -124,3 +124,9 @@ export const StyledFab = styled(Fab)`
     bottom: 2%;
     right: 5%;
 `;
+
+export const StyledSkeleton = styled('div')(({ theme }) => ({
+    width: '100%',
+    marginBottom: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+}));

@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useVirtual } from 'react-virtual';
 import AddIcon from '@mui/icons-material/Add';
+import { Box, LinearProgress, Skeleton } from '@mui/material';
+import { SxProps } from '@mui/system';
 
 import { BottomModal } from '../../components/BottomModal';
 
@@ -11,10 +13,17 @@ import useDetailReport from './domain/Hooks/UseDetailReport';
 import useReports from './domain/Hooks/UseReports';
 import {
     StyledFab,
-    StyledReportContainer, StyledReportWrap,
+    StyledReportContainer,
+    StyledReportWrap, StyledSkeleton,
     StyledVirtualContainer,
     StyledVirtualInner,
 } from './domain/Styled';
+
+const sxProgress: SxProps = {
+    width: 1,
+    position: 'absolute',
+    transform: 'translateY(-8px)',
+};
 
 const Reports: React.FC = () => {
     const {
@@ -29,13 +38,12 @@ const Reports: React.FC = () => {
         isFetching,
         loadMore,
         deleteReport,
+        preloadSkeletons,
     } = useReports(onClose);
 
     const navigate = useNavigate();
 
     const parentRef = React.useRef<HTMLDivElement | null>(null);
-
-    const test = React.useRef<HTMLDivElement | null>(null);
 
     const rowVirtualizer = useVirtual({
         size: reports.length,
@@ -61,9 +69,12 @@ const Reports: React.FC = () => {
 
     return (
         <React.Fragment>
+            <Box sx={ sxProgress }>
+                { isFetching && preloadSkeletons.length === 0 && <LinearProgress color="primary" /> }
+            </Box>
             <StyledReportContainer maxWidth="sm">
                 <StyledVirtualContainer ref={ parentRef }>
-                    <StyledVirtualInner height={ rowVirtualizer.totalSize } ref={ test }>
+                    <StyledVirtualInner height={ rowVirtualizer.totalSize }>
                         { rowVirtualizer.virtualItems.map((row) => (
                             <StyledReportWrap
                                 key={ row.index }
@@ -76,6 +87,11 @@ const Reports: React.FC = () => {
                                     onEdit={ () => {} }
                                 />
                             </StyledReportWrap>
+                        )) }
+                        { preloadSkeletons.map((item) => (
+                            <StyledSkeleton key={ item }>
+                                <Skeleton animation="wave" height={ 40 } />
+                            </StyledSkeleton>
                         )) }
                     </StyledVirtualInner>
                 </StyledVirtualContainer>

@@ -16,12 +16,16 @@ const initialOffset: ReportsOffset = {
     endDate: nowOffset.toISODate(),
 };
 
+const skeletons = new Array(15).fill(undefined).map((item, i) => i);
+
 const useReports = (closeDetail: () => void) => {
     const { user } = useUser();
 
     const [reports, setReports] = React.useState<ReportItem[]>([]);
 
     const [offset, setOffset] = React.useState<ReportsOffset>({ ...initialOffset });
+
+    const [preloadSkeletons, setPreloadSkeletons] = React.useState<number[]>(skeletons);
 
     const {
         isFetching,
@@ -32,6 +36,9 @@ const useReports = (closeDetail: () => void) => {
         {
             onSuccess: (data: ReportsCalendarDto) => {
                 setReports((prev) => [...prev, ...createReportsItems(data)]);
+                if (preloadSkeletons.length > 0) {
+                    setPreloadSkeletons([]);
+                }
             },
         },
     );
@@ -67,6 +74,7 @@ const useReports = (closeDetail: () => void) => {
         reports,
         loadMore,
         deleteReport,
+        preloadSkeletons,
     };
 };
 
