@@ -41,7 +41,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
                         <IconButton>
                             <EditIcon />
                         </IconButton>
-                        <IconButton color="error" onClick={ deleteReport }>
+                        <IconButton onClick={ deleteReport }>
                             <DeleteIcon />
                         </IconButton>
                     </Stack>

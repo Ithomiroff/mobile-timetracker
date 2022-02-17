@@ -80,14 +80,17 @@ export const StyledDetailContainer = styled(Grid)`
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const StyledDayNum = styled(({ isToday, ...props }: {isToday: boolean}) => <div { ...props } />)`
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: ${({ theme, isToday }) => isToday && theme.palette.primary.main};
     color: ${({ theme, isToday }) => isToday && theme.palette.primary.contrastText};
     border-radius: 50%;
+    p {
+        transform: translateY(2px);
+    }
 `;
 
 export const StyledSpinner = styled('div')`

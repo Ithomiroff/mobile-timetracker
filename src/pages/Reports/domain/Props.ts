@@ -14,3 +14,7 @@ export type ReportDetailProps = {
     report: ReportDto;
     onDetail: (id: number) => void;
 };
+
+export type MonthReportProps = {
+    topReport: ReportItem | null;
+};

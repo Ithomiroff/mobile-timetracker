@@ -8,6 +8,7 @@ import { SxProps } from '@mui/system';
 import { BottomModal } from '../../components/BottomModal';
 
 import DayReport from './components/DayReport';
+import MonthReport from './components/MonthReport';
 import ReportDetail from './components/ReportDetail';
 import useDetailReport from './domain/Hooks/UseDetailReport';
 import useReports from './domain/Hooks/UseReports';
@@ -65,6 +66,10 @@ const Reports: React.FC = () => {
         isFetching,
     ]);
 
+    const topReportItem = rowVirtualizer.virtualItems.length > 0
+        ? reports[rowVirtualizer.virtualItems[0].index]
+        : null;
+
     const goToAdd = () => navigate('add-report');
 
     return (
@@ -96,6 +101,10 @@ const Reports: React.FC = () => {
                     </StyledVirtualInner>
                 </StyledVirtualContainer>
             </StyledReportContainer>
+
+            <MonthReport
+                topReport={ topReportItem }
+            />
 
             <BottomModal
                 open={ Boolean(report) }
